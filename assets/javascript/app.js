@@ -2,6 +2,7 @@
 var counter = 30;
 var currentQuestion = 0;
 var score = 0;
+var lost = 0;
 var timer;
 
 //questions
@@ -29,19 +30,13 @@ var testQuestions = [{
 ];
 
 
-function timeUp() {
-    clearInterval();
+//functions for questions
+function userChoices(choices) {
+    var result = "";
+    for (let i = 0; i < choices.length; i++);
+    result = `<p class= choices data-answer="${choices[i]}">${choices[i]}</p>`
+    return result;
 }
-
-//timer count down from 30-0
-function countDown() {
-    counter--;
-    $("#timer").html("Timer:" + counter);
-    if (counter === 0) {
-        timeUp();
-    }
-}
-
 
 //questions and chioces displayed together
 //starts with first question
@@ -56,15 +51,32 @@ function startQuestion() {
 ${userChoices(choices)}`);
 }
 
-$(".btn").on("click", startQuestion);
-
-
-
-function userChoices(choices) {
-    var result = "";
-    for (let i = 0; i < choices.length; i++);
-    result = `<p class= choices data-answer="${choices[i]}">${choices[i]}</p>`
-    return result;
+//timer count down from 30-0
+//timer hits 0 user lost
+function countDown() {
+    counter--;
+    $("#timer").html("Timer:" + counter);
+    if (counter === 0) {
+        timeUp();
+        lost++;
+        nextQuestion();
+    }
 }
+//reseting timer
+function timeUp() {
+    clearInterval();
+}
+
+
+
+function nextQuestion() {
+    var isQuestionOver = (testQuestions.length - 1) === currentQuestion.index;
+    if (isQuestionOver) {
+        alert("Game Over!!!!")
+    } else {
+        currentQuestion++;
+        userChoices();
+    }
+};
 
 $(".btn").on("click", startQuestion);
