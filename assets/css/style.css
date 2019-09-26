@@ -1,0 +1,14 @@
+body {
+    background-color: purple;
+}
+
+#styledimg {
+    border: 10px dotted black;
+}
+
+.choice {
+    border: 1px solid purple;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
