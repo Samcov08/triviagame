@@ -12,3 +12,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.question {
+    font-size: 20px;
+}

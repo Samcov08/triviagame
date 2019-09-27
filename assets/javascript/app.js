@@ -4,7 +4,6 @@ var currentQuestion = 0;
 var score = 0;
 var lost = 0;
 var timer;
-
 //questions
 var testQuestions = [{
         question: "What is my favorite food?",
@@ -16,7 +15,6 @@ var testQuestions = [{
         choices: ["water", "beer", "dr.pepper", "mixed drink"],
         correctAnswer: "dr.pepper"
     },
-
     {
         question: "What is my favorite hobby?",
         choices: ["camping", "kayaking", "swimming", "watching movies"],
@@ -28,16 +26,14 @@ var testQuestions = [{
         correctAnswer: "hockey"
     }
 ];
-
-
 //functions for questions
 function userChoices(choices) {
     var result = "";
     for (let i = 0; i < choices.length; i++);
-    result = `<p class= choices data-answer="${choices[i]}">${choices[i]}</p>`
+    result = `<p class= choices data-answer="${choices[i]}&& ${question[i]}"></p>`
     return result;
-}
 
+}
 //questions and chioces displayed together
 //starts with first question
 function startQuestion() {
@@ -48,26 +44,23 @@ function startQuestion() {
     var choices = testQuestions[currentQuestion].choices;
     $("#timer").html("Timer:" + counter);
     $("#game").html(`<h4> ${questions} </h4>
-${userChoices(choices)}`);
-}
+    ${userChoices(choices)}`);
 
+
+}
 //timer count down from 30-0
 //timer hits 0 user lost
 function countDown() {
     counter--;
     $("#timer").html("Timer:" + counter);
     if (counter === 0) {
-        timeUp();
+        //cody edit: removed extra function and set clearInterval() to clear the timer
+        //reseting timer
+        clearInterval(timer);
         lost++;
         nextQuestion();
     }
 }
-//reseting timer
-function timeUp() {
-    clearInterval();
-}
-
-
 
 function nextQuestion() {
     var isQuestionOver = (testQuestions.length - 1) === currentQuestion.index;
@@ -78,5 +71,4 @@ function nextQuestion() {
         userChoices();
     }
 };
-
 $(".btn").on("click", startQuestion);
